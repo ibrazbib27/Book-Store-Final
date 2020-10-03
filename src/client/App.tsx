@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import BooksNavbar from "./components/books_navbar/BooksNavbar";
+import Account from './components/account/Account';
 
 
 export interface bookType
@@ -50,7 +51,6 @@ const App: React.FC<AppProps> = (props) => {
 										<Col xs={11} sm={10} md={9} lg={8} xl={7}>
 
 										</Col>
-
 									</Row>
 									<p className={'display-2'}>Welcome!</p>
 								</Container>
