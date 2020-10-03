@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import BooksNavbar from "./components/books_navbar/BooksNavbar";
 import Account from './components/account/Account';
+import Books from "./components/books/Books";
 
 
 export interface bookType
@@ -38,6 +39,21 @@ const App: React.FC<AppProps> = (props) => {
 					)}
 					/>
 				))}
+				{['/books', '/books/:id'].map((path) => (
+					<Route
+						exact
+						path={path}
+						key={path}
+						render={(props) => (
+							<>
+								<BooksNavbar  history={props.history} location={props.location} match={props.match} />
+								<Container fluid className={'bg-color w-100 d-flex justify-content-center min-vh-100 p-0'}>
+									<Books  history={props.history} location={props.location} match={props.match} />
+								</Container>
+							</>
+						)}
+					/>
+				))}
 				{['/login', '/register'].map((path) => (
 					<Route
 						exact
@@ -49,7 +65,7 @@ const App: React.FC<AppProps> = (props) => {
 								<Container fluid className={'bg-color w-100 d-flex justify-content-center min-vh-100 p-0'}>
 									<Row className={'w-100 align-items-center justify-content-center p-0 mb-0 mx-0 mt-5'}>
 										<Col xs={11} sm={10} md={9} lg={8} xl={7}>
-<Account authType={path === '/login'} history={props.history} location={props.location} match={props.match}/>
+								<Account authType={path === '/login'} history={props.history} location={props.location} match={props.match}/>
 										</Col>
 									</Row>
 								</Container>
