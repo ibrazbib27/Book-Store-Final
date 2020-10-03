@@ -47,7 +47,7 @@ const App: React.FC<AppProps> = (props) => {
 						render={(props) => (
 							<>
 								<BooksNavbar  history={props.history} location={props.location} match={props.match} />
-								<Container fluid className={'bg-color w-100 d-flex justify-content-center min-vh-100 p-0'}>
+								<Container fluid className={'bg-color w-100 d-flex align-items-center justify-content-center min-vh-100 p-0'}>
 									<Books  history={props.history} location={props.location} match={props.match} />
 								</Container>
 							</>

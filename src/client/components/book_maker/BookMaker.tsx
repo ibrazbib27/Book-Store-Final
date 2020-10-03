@@ -15,10 +15,14 @@ interface BookMakerProps extends RouteComponentProps<any> {
 const BooksMaker: React.FC<BookMakerProps> = (props) => {
     const deleteBook = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         try{
-           const result: any = await json(`/api/books/${props.book.id}/book`, 'DELETE');
-           if(result){
-               props.history.replace('/books');
-           }
+            if(localStorage.getItem('token')) {
+                const result: any = await json(`/api/books/${props.book.id}/book`, 'DELETE');
+                if (result) {
+                    props.history.replace('/books');
+                }
+            }
+            else props.history.push('/login');
+
         }
         catch (e) {
             throw e;
@@ -42,7 +46,7 @@ return(
             : 
             <>
                 <Button variant={'danger'} className={'shadow-sm'} onClick={deleteBook} >Delete Book</Button>
-                <Link className={'btn btn-secondary shadow-sm'} to={`/books/${props.book.id}/update`} >Update Book</Link>
+                <Link className={'btn btn-secondary shadow-sm'} to={localStorage.getItem('token') ? `/books/${props.book.id}/update` : '/login'} >Update Book</Link>
             </>
         }
     </Card.Footer>

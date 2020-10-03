@@ -29,9 +29,9 @@ const Books: React.FC<BooksProps> = (props) => {
   }, []);
 
     return(
-        <Row xs={1} sm={1} md={2} lg={3} xl={3} className={`w-100 p-0 align-items-center justify-content-${books.length > 1 ? 'center' : 'around'}`}>
+        <Row xs={1} sm={1} md={2} lg={3} xl={3} className={`w-100 p-0 justify-content-center align-items-${books.length > 1 ? 'center' : 'stretch'}`}>
             {books.map((book) =>(
-                <Col key={book.id} className={`py-3 my-3 ${books.length > 1 ? 'px-3 px-md-0' : 'd-flex align-self-stretch'}`}>
+                <Col key={book.id} className={`py-3 my-3 ${books.length > 1 ? 'd-flex align-self-stretch' : 'px-3 px-md-0'}`}>
                     <BookMaker key={book.id} book={book} history={props.history} location={props.location} match={props.match}/>
                 </Col>
             ))}
