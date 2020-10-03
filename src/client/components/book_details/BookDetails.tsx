@@ -27,9 +27,10 @@ const BookDetails: React.FC<BookDetailsProps> = (props) => {
             try{
                 const allCategories: {id: number; name: string;} [] = await json('/api/books/categories', 'GET');
                 setCategories(allCategories);
+
                 if(props.match.params.id) {
-                    const bookDetails: bookType = await json(`/api/books/book/${props.match.params.id}`,'GET');
-                    setBookData(bookDetails);
+                    const bookDetails: bookType [] = await json(`/api/books/${props.match.params.id}/book`,'GET');
+                    setBookData(bookDetails[0]);
                 }
                 setLoaded(true);
             }
@@ -77,6 +78,7 @@ const BookDetails: React.FC<BookDetailsProps> = (props) => {
                                 type="text"
                                 placeholder="Title"
                                 maxLength={60}
+                                defaultValue={bookData.title}
                                 className={'shadow-sm'}
                                 isInvalid={submitted ? formValidations.title : false}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,6 +100,7 @@ const BookDetails: React.FC<BookDetailsProps> = (props) => {
                             type="text"
                             placeholder="Author"
                             maxLength={60}
+                            defaultValue={bookData.author}
                             className={'shadow-sm'}
                             isInvalid={submitted ? formValidations.author : false}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,6 +122,7 @@ const BookDetails: React.FC<BookDetailsProps> = (props) => {
                                 <NumberFormat
                                     prefix={'$'}
                                     decimalScale={2}
+                                    defaultValue={bookData.price}
                                     fixedDecimalScale={true}
                                     thousandSeparator={true}
                                     allowNegative={false}
@@ -131,12 +135,34 @@ const BookDetails: React.FC<BookDetailsProps> = (props) => {
                                 />
                                 <Form.Control.Feedback type={'invalid'} className={'text-left'}>Enter the price value of the Book</Form.Control.Feedback>
                             </Form.Group>
+                            <Form.Group as={Col} xs={12} md={7} >
+                                <Form.Label><b>Author</b></Form.Label>
+                                <Form.Control
+                                    as={'select'}
+                                    defaultValue={bookData.categoryid}
+                                    className={'shadow-sm'}
+                                    isInvalid={submitted ? formValidations.category : false}
+                                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                                        e.persist();
+                                        const validate: boolean = parseInt(e.target.value) > 0;
+                                        setBookData(prevData => ({...prevData, categoryid: parseInt(e.target.value)}));
+                                        setFormValidations(prevValidation => ({...prevValidation, category: !validate}));
+
+                                    }}
+                                >
+                                    <option key={0} value={0} disabled>Select a Category</option>
+                                    {categories.map((category)=>(
+                                        <option key={category.id} value={category.id}>{category.name}</option>
+                                    ))}
+                                </Form.Control>
+                                <Form.Control.Feedback type={'invalid'} className={'text-left'}>Select a category</Form.Control.Feedback>
+                            </Form.Group>
                         </Form.Row>
                     </Form.Group>
                 </Form.Row>
                 <Form.Row className={'justify-content-center'}>
                     <Form.Group as={Col} xs={10} >
-                        <Button type="submit" variant={'success'} className={'shadow-sm'}>{props.authType ? 'Login': 'Register'}</Button>
+                        <Button type="submit" variant={'success'} className={'shadow-sm'}>{props.match.params.id ? 'Save Changes': 'Create Book'}</Button>
                     </Form.Group>
                 </Form.Row>
                     </>

@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import BooksNavbar from "./components/books_navbar/BooksNavbar";
 import Account from './components/account/Account';
 import Books from "./components/books/Books";
+import BookDetails from "./components/book_details/BookDetails";
 
 
 export interface bookType
@@ -45,16 +46,20 @@ const App: React.FC<AppProps> = (props) => {
 						exact
 						key={path}
 						render={(props) => (
+							(localStorage.getItem('token') ?
 							<>
 								<BooksNavbar  history={props.history} location={props.location} match={props.match} />
 								<Container fluid className={'d-flex justify-content-center bg-color min-vh-100 p-0'}>
 									<Row className={'justify-content-center align-items-center w-100 p-0 mb-0 mx-0 mt-5'}>
 										<Col xl={7} lg={8} md={9} sm={10} xs={11}>
-
+											<BookDetails  history={props.history} location={props.location} match={props.match} />
 										</Col>
 									</Row>
 								</Container>
 							</>
+									:
+									<Redirect to={'/login' } />
+							)
 						)}
 					/>
 				))}
@@ -79,16 +84,24 @@ const App: React.FC<AppProps> = (props) => {
 						path={path}
 						key={path}
 						render={(props) => (
-							<>
-								<BooksNavbar  history={props.history} location={props.location} match={props.match} />
-								<Container fluid className={'bg-color w-100 d-flex justify-content-center min-vh-100 p-0'}>
-									<Row className={'w-100 align-items-center justify-content-center p-0 mb-0 mx-0 mt-5'}>
-										<Col xs={11} sm={10} md={9} lg={8} xl={7}>
-								<Account authType={path === '/login'} history={props.history} location={props.location} match={props.match}/>
-										</Col>
-									</Row>
-								</Container>
-							</>
+							(!localStorage.getItem('token') ?
+									<>
+										<BooksNavbar history={props.history} location={props.location}
+													 match={props.match}/>
+										<Container fluid
+												   className={'bg-color w-100 d-flex justify-content-center min-vh-100 p-0'}>
+											<Row
+												className={'w-100 align-items-center justify-content-center p-0 mb-0 mx-0 mt-5'}>
+												<Col xs={11} sm={10} md={9} lg={8} xl={7}>
+													<Account authType={path === '/login'} history={props.history}
+															 location={props.location} match={props.match}/>
+												</Col>
+											</Row>
+										</Container>
+									</>
+									:
+									<Redirect to={'/books' } />
+							)
 						)}
 					/>
 				))}
