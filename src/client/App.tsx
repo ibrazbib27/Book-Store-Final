@@ -34,7 +34,7 @@ const App: React.FC<AppProps> = (props) => {
 						<>
 							<BooksNavbar  history={props.history} location={props.location} match={props.match} />
 							<Container fluid className={'bg-color w-100 d-flex align-items-center justify-content-center min-vh-100'}>
-								<p className={'display-2'}>Welcome!</p>
+								<p className={'display-3 text-center'}>Welcome {localStorage.getItem('token') ? 'Back, Dear Member' :  'To The Book Store'}!</p>
 							</Container>
 						</>
 					)}

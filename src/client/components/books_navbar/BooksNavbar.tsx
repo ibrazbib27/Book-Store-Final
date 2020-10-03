@@ -30,7 +30,7 @@ const BooksNavbar: React.FC<BooksNavbarProps> = (props) => {
     }
 
     return(
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={{maxHeight: 200, overflow: 'auto'}}>
             <Navbar.Brand as={Link} to={'/'} >Book Store</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">

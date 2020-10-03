@@ -89,7 +89,7 @@ const BookDetails: React.FC<BookDetailsProps> = (props) => {
 
                                 }}
                             />
-                            <Form.Control.Feedback type={'invalid'} className={'text-left'}>Enter the title of the Book</Form.Control.Feedback>
+                            <Form.Control.Feedback type={'invalid'} className={'text-left'}>Enter the title of the book</Form.Control.Feedback>
                         </Form.Group>
                     </Form.Row>
 
@@ -111,7 +111,7 @@ const BookDetails: React.FC<BookDetailsProps> = (props) => {
 
                             }}
                         />
-                        <Form.Control.Feedback type={'invalid'} className={'text-left'}>Enter the author of the Book</Form.Control.Feedback>
+                        <Form.Control.Feedback type={'invalid'} className={'text-left'}>Enter the author of the book</Form.Control.Feedback>
                     </Form.Group>
                 </Form.Row>
                 <Form.Row className={'justify-content-center mb-5 mx-0 mt-0 p-0'}>
@@ -133,7 +133,7 @@ const BookDetails: React.FC<BookDetailsProps> = (props) => {
                                         setFormValidations(prevValidation => ({...prevValidation, price: validate}));
                                     }}
                                 />
-                                <Form.Control.Feedback type={'invalid'} className={'text-left'}>Enter the price value of the Book</Form.Control.Feedback>
+                                <Form.Control.Feedback type={'invalid'} className={'text-left'}>Enter the price value of the book</Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group as={Col} xs={12} md={7} >
                                 <Form.Label><b>Author</b></Form.Label>

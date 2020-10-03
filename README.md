@@ -15,3 +15,24 @@ The client configuration will also build the Sass files found at `/src/client/sc
 In order to run the server, use `npm run dev`, and the server will start on port 3000 (http://localhost:3000). 
 
 Webpack will watch the files. Once you save a file, you can refresh your browser to ensure you got the updated client files. If you only change server files, you *shouldn't* need to refresh.
+
+
+## Important Notes
+I blatantly excluded the server/config directory to git for security and privacy purposes.
+In my config directory I had only one file named 'index.ts' and in that file I stored my 'mysql'
+configuration data and a secret code. it resembles the following format:
+
+export default { <br />
+&emsp;&emsp;mysql: {<br/>
+&emsp;&emsp;&emsp;&emsp;host: '',<br/>
+&emsp;&emsp;&emsp;&emsp;port: num, <br/>
+&emsp;&emsp;&emsp;&emsp;database: '',<br/>
+&emsp;&emsp;&emsp;&emsp;user: '',<br/>
+&emsp;&emsp;&emsp;&emsp;password: '',<br/>
+&emsp;&emsp;&emsp;&emsp;connectionLimit: num <br/>
+&emsp;&emsp;},<br/>
+&emsp;&emsp;auth:{<br/>
+&emsp;&emsp;&emsp;&emsp;secret: ''<br/>
+&emsp;&emsp;}<br/>
+};<br/>
+
