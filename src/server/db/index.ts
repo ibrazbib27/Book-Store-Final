@@ -3,7 +3,7 @@ import development from '../config';
 
 import AccessTokens from './queries/accesstokens';
 import Books from './queries/books';
-import User from './queries/users';
+import Users from './queries/users';
 
 
 
