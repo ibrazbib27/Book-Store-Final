@@ -49,10 +49,9 @@ const App: React.FC<AppProps> = (props) => {
 								<Container fluid className={'bg-color w-100 d-flex justify-content-center min-vh-100 p-0'}>
 									<Row className={'w-100 align-items-center justify-content-center p-0 mb-0 mx-0 mt-5'}>
 										<Col xs={11} sm={10} md={9} lg={8} xl={7}>
-
+<Account authType={path === '/login'} history={props.history} location={props.location} match={props.match}/>
 										</Col>
 									</Row>
-									<p className={'display-2'}>Welcome!</p>
 								</Container>
 							</>
 						)}

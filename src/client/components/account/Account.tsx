@@ -57,7 +57,7 @@ const Account: React.FC<AccountProps> = (props) => {
 
     return(
         <Jumbotron fluid className={'p-1 bg-light text-center shadow rounded w-100'}>
-            <Form noValidate  onSubmit={handleSubmit}>
+            <Form noValidate  onSubmit={handleSubmit} className={'pt-4'}>
                 {!props.authType ?
                 <Form.Row className={'justify-content-center mb-5'}>
                     <Form.Group as={Col} xs={10} >
@@ -68,8 +68,9 @@ const Account: React.FC<AccountProps> = (props) => {
                             className={'shadow-sm'}
                             isInvalid={submitted ? formValidations.name : false}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                const validate: boolean = e.currentTarget.value.trim().length > 0;
-                                setAccountData(prevData => ({...prevData, name: e.currentTarget.value.trim()}));
+                                e.persist();
+                                const validate: boolean = e.target.value.trim().length > 0;
+                                setAccountData(prevData => ({...prevData, name: e.target.value.trim()}));
                                 setFormValidations(prevValidation => ({...prevValidation, name: !validate}));
 
                             }}
@@ -88,10 +89,11 @@ const Account: React.FC<AccountProps> = (props) => {
                             type="email"
                             placeholder="Email"
                             className={'shadow-sm'}
-                            isInvalid={submitted ? formValidations.name : false}
+                            isInvalid={submitted ? formValidations.email : false}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                const validate: boolean = props.authType ? e.currentTarget.value.trim().length > 0 : /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.currentTarget.value.trim());
-                                setAccountData(prevData => ({...prevData, email: e.currentTarget.value.trim()}));
+                                e.persist();
+                                const validate: boolean = props.authType ? e.target.value.trim().length > 0 : /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.currentTarget.value.trim());
+                                setAccountData(prevData => ({...prevData, email: e.target.value.trim()}));
                                 setErrMessages(prevMessage => ({...prevMessage, email: props.authType ? 'Enter your email' : 'Enter a valid email'}));
                                 setFormValidations(prevValidation => ({...prevValidation, email: !validate}));
 
@@ -105,28 +107,26 @@ const Account: React.FC<AccountProps> = (props) => {
                         <Form.Label><b>Password</b></Form.Label>
                         <Form.Control
                             type="password"
-                            placeholder="Password"
+                            placeholder={props.authType ? 'Password' : 'At least 6 characters'}
                             className={'shadow-sm'}
-                            isInvalid={submitted ? formValidations.name : false}
+                            isInvalid={submitted ? formValidations.password : false}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                const validate: boolean = props.authType ? e.currentTarget.value.length > 0 : e.currentTarget.value.length >= 6;
-                                setAccountData(prevData => ({...prevData, password: e.currentTarget.value}));
+                                e.persist();
+                                const validate: boolean = props.authType ? e.target.value.length > 0 : e.currentTarget.value.length >= 6;
+                                setAccountData(prevData => ({...prevData, password: e.target.value}));
                                 setErrMessages(prevMessage => ({...prevMessage, password:  props.authType ? 'Enter your password' : 'Enter a valid password that is at least 6 characters long'}));
                                 setFormValidations(prevValidation => ({...prevValidation, password: !validate}));
 
                             }}
                         />
-                        <Form.Control.Feedback type={'invalid'} className={'text-left'}>{errMessages.email}</Form.Control.Feedback>
+                        <Form.Control.Feedback type={'invalid'} className={'text-left'}>{errMessages.password}</Form.Control.Feedback>
                     </Form.Group>
                 </Form.Row>
-                <Form.Group>
-                    <Form.Check
-                        required
-                        label="Agree to terms and conditions"
-                        feedback="You must agree before submitting."
-                    />
-                </Form.Group>
-                <Button type="submit">Submit form</Button>
+                <Form.Row className={'justify-content-center'}>
+                    <Form.Group as={Col} xs={10} >
+                <Button type="submit" variant={'success'} className={'shadow-sm'}>{props.authType ? 'Login': 'Register'}</Button>
+                    </Form.Group>
+                </Form.Row>
             </Form>
         </Jumbotron>
     );
